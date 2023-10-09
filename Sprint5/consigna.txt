@@ -1,0 +1,106 @@
+ 
+Consigna trabajo final Sprint 5 
+ 
+1.	Introducción
+ITBANK tiene distintos tipos de clientes y distintos tipos de cuentas que le puede dar a cada uno. A continuación, se detallan las características de cada uno de ellos 
+Tipos de cliente 
+-	Classic 
+-	Gold 
+-	Black 
+ 
+Tipos de cuenta 
+-	Caja de ahorro en peso 
+-	Caja de ahorro en dólares 
+-	Cuenta Corriente en pesos 
+-	Cuenta Corriente en dólares 
+-	Cuenta Inversión 
+ Y a su vez los clientes pueden optar por distintos tipos de tarjetas de crédito como de débito con sus determinados niveles según el tipo de cliente. 
+ Las tarjetas que tiene convenio para dar el banco son Mastercard (MASTER), VISA y American Express (Amex). 
+ 
+2.	Restricciones de operación según el cliente
+Clientes Classic 
+-	Una tarjeta de débito.
+-	Caja de ahorro en pesos.
+-	Opcionalmente, caja de ahorro en dólares con cargo mensual.
+-	Hasta 5 retiros de dinero en efectivo sin comisiones, luego se aplica una tarifa. El límite diario de retiro es de $10,000 por cajero.
+-	No tienen acceso a tarjetas de crédito.
+-	Comisión del 1% por transferencias salientes y 0.5% por transferencias entrantes.
+ 
+Clientes Gold 
+-	Una tarjeta de débito.
+-	Hasta 2 cajas de ahorro y una cuenta corriente sin cargos adicionales. Se aplica un cargo mensual extra por cajas de ahorro en dólares adicionales.
+-	Tarjetas VISA y/o Mastercard con hasta 5 extensiones cada una, con límites de $150,000 en un pago y $100,000 en cuotas.
+-	Máximo de $20,000 en retiros diarios sin comisiones. Retiros ilimitados sin costo mensual.
+-	Acceso a cuentas de inversión.
+-	Posibilidad de tener una chequera.
+-	Comisión del 0.5% por transferencias salientes y 0.1% por transferencias entrantes.
+ 
+Clientes Black 
+-	Hasta 5 tarjetas de débito.
+-	Hasta 5 cajas de ahorro en pesos y dólares sin cargos adicionales, luego se aplica un cargo extra.
+-	Hasta 3 cuentas corrientes sin cargos adicionales.
+-	Tarjetas VISA, Mastercard y/o American Express con hasta 10 extensiones cada una, con límites de $500,000 en un pago y $600,000 en cuotas.
+-	Retiro máximo de $100,000 por día sin comisiones, con retiros ilimitados al mes sin costo adicional.
+-	Acceso a cuentas de inversión.
+-	Posibilidad de tener hasta dos chequeras.
+-	No se aplican comisiones a las transferencias
+
+3.	Problemáticas a  resolver
+3.1.	Funciones
+ 
+Se solicita tener disponible las siguientes funciones: 
+-	calcular_monto_total(): Dado un determinado precio de dólar y monto que se quiere adquirir de ellos, calcular el monto total que se tiene que gastar sumando el impuesto país y ganancias.
+-	descontar_comision(): Dado un determinado monto y una comisión en porcentajes, devolver el monto descontando la comisión.
+-	calcular_monto_plazo_fijo(): Dado un monto de plazo fijo, devolver el monto según el interés que se indique.
+Realiza las pruebas unitarias necesarias para cada función.
+ 
+3.2.	Resumen de movimientos
+ 
+
+
+
+Se pide armar un resumen de los movimientos que puede tener un cliente de forma de validarlos según corresponda el tipo, por ejemplo, si el cliente es Classic quiere dar de alta una chequera en el reporte debería figurar invalido.  
+Por razón de que el banco cuenta con una aplicación Legacy1, solo es capaz de enviar las transacciones diferenciadas si fueron aceptadas o no, sin indicar la razón, pero se sabe que el sistema lo realiza correctamente. Lo único que se puede recibir es la información cruda del evento que ocurrió con los montos, por lo que el reporte debe ser capaz de mostrar la razón de porqué fue aceptada o no. 
+Ejemplo de reporte:
+Se pide que la salida de la aplicación sea un HTML válido de forma que el browser se pueda interpretar y visualizar. 
+ { 
+  "numero": 100001, 
+  "nombre": "Nicolas", 
+  "apellido": "Gaston", 
+  "dni": "29494777", 
+  "tipo": "BLACK", 
+  "transacciones": [ 
+    { 
+      "estado": "ACEPTADA", 
+      "tipo": "RETIRO_EFECTIVO_CAJERO_AUTOMATICO", 
+      "cuentaNumero": 190, 
+      "permitidoActualParaTransccion": 9000, 
+      "monto": 1000, 
+      "fecha": "10/10/2022 16: 00: 55", 
+      "numero": 1 
+    }, 
+    { 
+      "ESTADO": "RECHAZADA", 
+      "tipo": "COMPRA_EN_CUOTAS_TARJETA_VISA", 
+      "permitidoActualParaTransccion": 9000, 
+      "monto": 750000, 
+      "fecha": "10/10/2022 16: 14: 35", 
+      "numero": 2 
+    } 
+  ] 
+} 
+Como las transacciones que se pueden hacer en el sistema legado son acotadas, no van a venir todas las operaciones que se podrían hacer una vez que se tenga el nuevo homebanking.  Por lo tanto, las operaciones están limitadas a:
+ RETIRO_EFECTIVO_CAJERO_AUTOMATICO 
+RETIRO_EFECTIVO_POR_CAJA 
+COMPRA_EN_CUOTAS_TARJETA_CREDITO_<tipo de tarjeta> 
+COMPRA_TARJETA_CREDITO_<tipo de tarjeta> 
+ALTA_TARJETA_CREDITO_<Tipo de tarjeta> 
+ALTA_TARJETA_DEBITO 
+ALTA_CHEQUERA 
+ALTA_CUENTA_CTE_<Tipo de moneda> 
+ALTA_CAJA_DE_AHORRO_<Tipo de moneda> 
+ALTA_CUENTA_DE_INVERSION 
+COMPRA_DOLAR 
+VENTA_DOLAR 
+TRANSFERENCIA_ENVIADA_<Tipo moneda> 
+TRANSFERENCIA_RECIBIDA_<Tipo moneda> 
